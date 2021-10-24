@@ -17,7 +17,7 @@ export default function Login() {
       email: userEmail,
       password: userPassword,
     };
-    axios.post('http://localhost:4000/login', body).then((res) => {
+    axios.post('http://localhost:4002/login', body).then((res) => {
       setUser(res.data);
       history.push('/home');
     }).catch(() => {

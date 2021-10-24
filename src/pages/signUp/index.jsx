@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -13,20 +14,24 @@ export default function Register() {
   const history = useHistory();
 
   function signUp(event) {
+    console.log('1');
     event.preventDefault();
+    console.log('2');
     const body = {
       email: userEmail,
       name: userName,
       password: userPassword,
+      repeatPassword: userConfirmPassword,
     };
     if (userPassword !== userConfirmPassword) {
       alert('As senhas não correspondem.');
       return;
     }
-    axios.post('http://localhost:4000/sign-up', body).then(() => {
+    console.log('3');
+    axios.post('http://localhost:4002/register', body).then(() => {
       history.push('/login');
-    }).catch(() => {
-      // tratar possíveis erros
+    }).catch((e) => {
+      console.log(e);
     });
     setUserName('');
     setUserEmail('');
@@ -37,7 +42,7 @@ export default function Register() {
   return (
     <S.Body>
       <S.Title>MyWallet</S.Title>
-      <S.Form onSubmit={() => { signUp(); }}>
+      <S.Form onSubmit={signUp}>
         <input
           required
           placeholder="Nome"

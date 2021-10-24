@@ -15,7 +15,7 @@ export default function HomePage() {
   const header = {
     authorization: `Bearer ${user.token}`,
   };
-  axios.get('http://localhost:4000/my-wallet', header).then((req) => {
+  axios.get('http://localhost:4002/home', header).then((req) => {
     setTransactionsList(req.data);
   });
 
@@ -25,7 +25,7 @@ export default function HomePage() {
         <S.Hello>
           Olá,
           {' '}
-          {user.user.username}
+          {/* {user.user.username} */}
         </S.Hello>
         <S.Exit>
           <ImExit
