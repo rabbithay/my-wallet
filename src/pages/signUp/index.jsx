@@ -26,7 +26,7 @@ export default function Register() {
       return;
     }
     axios.post('http://localhost:4002/register', body).then(() => {
-      history.push('/login');
+      history.push('/');
       setUserName('');
       setUserEmail('');
       setUserPassword('');
@@ -69,7 +69,7 @@ export default function Register() {
         />
         <button type="submit">Cadastrar</button>
       </S.Form>
-      <Link to="/login">
+      <Link to="/">
         <S.GoToLogin>Já tem uma conta? Entre agora!</S.GoToLogin>
       </Link>
     </S.Body>

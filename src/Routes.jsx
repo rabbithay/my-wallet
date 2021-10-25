@@ -17,10 +17,10 @@ export default function Routes() {
         <Route path="/register" exact>
           <Register />
         </Route>
-        <Route path="/login" exact>
+        <Route path="/" exact>
           <Login />
         </Route>
-        <Route path="/" exact>
+        <Route path="/home" exact>
           <HomePage />
         </Route>
         <Route path="/new-income" exact>

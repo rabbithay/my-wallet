@@ -22,7 +22,7 @@ export default function Login() {
 
     axios.post('http://localhost:4002/login', body).then((res) => {
       setUser(res.data);
-      history.push('/');
+      history.push('/home');
     }).catch((error) => {
       let title = '';
       console.log(error.response.status);

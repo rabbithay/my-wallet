@@ -14,15 +14,17 @@ export default function NewExpense() {
   function newTransaction(event) {
     event.preventDefault();
 
-    const header = {
-      authorization: `Bearer ${user.token}`,
+    const config = {
+      headers: {
+        authorization: `Bearer ${user.token}`,
+      },
     };
     const body = {
       value: parseFloat(newValue),
       description: newDescription,
     };
-    axios.post('http://localhost:4002/expense', body, header).then(() => {
-      history.push('/my-wallet');
+    axios.post('http://localhost:4002/expense', body, config).then(() => {
+      history.push('/home');
     }).catch(() => {
       alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
     });
@@ -31,7 +33,7 @@ export default function NewExpense() {
   return (
     <S.Body>
       <S.Hello>Nova saída</S.Hello>
-      <S.Form onSubmit={() => { newTransaction(); }}>
+      <S.Form onSubmit={(e) => { newTransaction(e); }}>
         <input
           required
           placeholder="Valor"
