@@ -1,31 +1,34 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 import { ImExit } from 'react-icons/im';
 import UserContext from '../../contexts/UserContext';
-import Transactions from './Transations';
+import Transactions from './Transactions';
 
 import * as S from './style';
 
 export default function HomePage() {
   const [transactionsList, setTransactionsList] = useState('');
   const { user } = useContext(UserContext);
-
-  const header = {
-    authorization: `Bearer ${user.token}`,
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
   };
-  axios.get('http://localhost:4002/home', header).then((req) => {
-    setTransactionsList(req.data);
-  });
+  useEffect(() => {
+    axios.get('http://localhost:4002/home', config).then((res) => {
+      setTransactionsList(res.data);
+    }).catch(() => {
+      alert('alguma coisa deu errada... por favor, recarregue a página');
+    });
+  }, []);
 
   return (
     <S.Body>
       <S.TopBox>
         <S.Hello>
-          Olá,
-          {' '}
-          {/* {user.user.username} */}
+          {`Olá ${user.name}`}
         </S.Hello>
         <S.Exit>
           <ImExit
@@ -36,7 +39,6 @@ export default function HomePage() {
       </S.TopBox>
       <S.RecordsBox>
         {(!transactionsList.length)
-
           ? (
             <p>
               Não há registros de
@@ -45,10 +47,8 @@ export default function HomePage() {
               entrada ou saída
             </p>
           )
-
-          : <Transactions transactionsList={transactionsList} />}
+          : <Transactions list={transactionsList} />}
         {' '}
-
       </S.RecordsBox>
       <S.BottomBox>
         <Link to="/new-income">

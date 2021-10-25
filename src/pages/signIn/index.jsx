@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import UserContext from '../../contexts/UserContext';
 import * as S from './style';
+import ModalAlert from '../../components/ModalAlert';
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState('');
@@ -13,21 +14,36 @@ export default function Login() {
 
   function signIn(event) {
     event.preventDefault();
+
     const body = {
       email: userEmail,
       password: userPassword,
     };
+
     axios.post('http://localhost:4002/login', body).then((res) => {
       setUser(res.data);
-      history.push('/home');
-    }).catch(() => {
-      alert('usuario e/ou senha incorretos');
+      history.push('/');
+    }).catch((error) => {
+      let title = '';
+      console.log(error.response.status);
+      switch (error.response.status) {
+        case 404:
+          title = 'usuário ou senha inválidos, tente novamente';
+          break;
+        default:
+          title = 'ocorreu um erro. por favor, recarregue a página';
+      }
+      const modalObj = {
+        icon: 'error',
+        title,
+      };
+      ModalAlert(modalObj);
     });
   }
   return (
     <S.Body>
       <S.Title>MyWallet</S.Title>
-      <S.Form onSubmit={() => { signIn(); }}>
+      <S.Form onSubmit={(event) => { signIn(event); }}>
         <input
           required
           placeholder="E-mail"

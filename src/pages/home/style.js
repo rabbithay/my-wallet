@@ -3,12 +3,12 @@ import styled from 'styled-components';
 export const Body = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: #8c11be;
+    background-color: #e94692;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: Raleway;
+    font-family: 'Raleway';
     padding: 25px;
 `;
 export const TopBox = styled.div`
@@ -38,13 +38,6 @@ export const RecordsBox = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: 13px;
-    p {
-        color: #868686;
-        font-weight: 400;
-        font-size: 20px;
-        text-align: center;
-
-    }
 `;
 export const BottomBox = styled.div`
     height: 114px;
@@ -55,7 +48,7 @@ export const BottomBox = styled.div`
 export const Button = styled.button`
     width: calc((100vw - 65px) / 2);
     height: 100%;
-    background-color: #A328D6;
+    background-color: #fb76b5;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

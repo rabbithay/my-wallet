@@ -14,9 +14,7 @@ export default function Register() {
   const history = useHistory();
 
   function signUp(event) {
-    console.log('1');
     event.preventDefault();
-    console.log('2');
     const body = {
       email: userEmail,
       name: userName,
@@ -27,16 +25,15 @@ export default function Register() {
       alert('As senhas não correspondem.');
       return;
     }
-    console.log('3');
     axios.post('http://localhost:4002/register', body).then(() => {
       history.push('/login');
-    }).catch((e) => {
-      console.log(e);
+      setUserName('');
+      setUserEmail('');
+      setUserPassword('');
+      setUserConfirmPassword('');
+    }).catch(() => {
+      alert('alguma coisa deu errada... por favor, tente novamente');
     });
-    setUserName('');
-    setUserEmail('');
-    setUserPassword('');
-    setUserConfirmPassword('');
   }
 
   return (

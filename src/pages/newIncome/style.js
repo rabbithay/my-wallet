@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Body = styled.div`
     width: 100vw;
     height: 100vh;
-    background-color: #8c11be;
+    background-color: #e94692;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@ export const Form = styled.form`
     button {
         width: calc(100vw - 50px);
         height: 48px;
-        background-color: #A328D6;
+        background-color: #fb76b5;
         color: white;
         border-radius: 5px;
         margin-bottom: 36px;

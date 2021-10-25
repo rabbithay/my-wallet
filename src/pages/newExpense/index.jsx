@@ -21,7 +21,7 @@ export default function NewExpense() {
       value: parseFloat(newValue),
       description: newDescription,
     };
-    axios.post('http://localhost:4000/new-expense', body, header).then(() => {
+    axios.post('http://localhost:4002/expense', body, header).then(() => {
       history.push('/my-wallet');
     }).catch(() => {
       alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');

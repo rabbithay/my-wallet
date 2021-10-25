@@ -15,14 +15,16 @@ export default function NewIncome() {
   function newTransaction(event) {
     event.preventDefault();
 
-    const header = {
-      authorization: `Bearer ${user.token}`,
+    const config = {
+      headers: {
+        authorization: `Bearer ${user.token}`,
+      },
     };
     const body = {
       value: parseFloat(newValue),
       description: newDescription,
     };
-    axios.post('http://localhost:4000/new-income', body, header).then(() => {
+    axios.post('http://localhost:4002/income', body, config).then(() => {
       history.push('/');
     }).catch(() => {
       alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
@@ -31,7 +33,7 @@ export default function NewIncome() {
   return (
     <S.Body>
       <S.Hello>Nova entrada</S.Hello>
-      <S.Form onSubmit={() => { newTransaction(); }}>
+      <S.Form onSubmit={(e) => { newTransaction(e); }}>
         <input
           required
           placeholder="Valor"

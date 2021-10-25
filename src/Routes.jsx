@@ -30,7 +30,6 @@ export default function Routes() {
           <NewExpense />
         </Route>
       </Switch>
-
     </UserContext.Provider>
   );
 }
