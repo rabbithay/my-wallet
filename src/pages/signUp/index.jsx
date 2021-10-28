@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import * as S from './styles';
+import handleError from '../../hooks/handleError';
 
 export default function Register() {
   const [userName, setUserName] = useState('');
@@ -31,15 +32,15 @@ export default function Register() {
       setUserEmail('');
       setUserPassword('');
       setUserConfirmPassword('');
-    }).catch(() => {
-      alert('alguma coisa deu errada... por favor, tente novamente');
+    }).catch((error) => {
+      handleError(error);
     });
   }
 
   return (
     <S.Body>
       <S.Title>MyWallet</S.Title>
-      <S.Form onSubmit={signUp}>
+      <S.Form onSubmit={(e) => { signUp(e); }}>
         <input
           required
           placeholder="Nome"

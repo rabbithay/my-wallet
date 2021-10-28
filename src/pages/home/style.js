@@ -24,11 +24,7 @@ export const Hello = styled.h1`
     color: white;
     font-weight: 700;
 `;
-export const Exit = styled.p`
-    color: white;
-    font-size: 17px;
-    font-weight: 700;    
-`;
+
 export const RecordsBox = styled.div`
     width: 100%;
     height: calc(100vh - 225px);
