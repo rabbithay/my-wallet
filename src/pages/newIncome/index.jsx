@@ -25,7 +25,7 @@ export default function NewIncome() {
       description: newDescription,
     };
     axios.post('http://localhost:4002/income', body, config).then(() => {
-      history.push('/');
+      history.push('/home');
     }).catch(() => {
       alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
     });

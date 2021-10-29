@@ -2,25 +2,24 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
-import { ImExit } from 'react-icons/im';
 import UserContext from '../../contexts/UserContext';
 import Transactions from './Transactions';
 
 import * as S from './style';
+import useAuthConfig from '../../hooks/authConfig';
+import ExitButton from '../../components/ExitButton';
+import handleError from '../../hooks/handleError';
 
 export default function HomePage() {
   const [transactionsList, setTransactionsList] = useState('');
-  const { user } = useContext(UserContext);
-  const config = {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  };
+  const { userInfo } = useContext(UserContext);
+  const config = useAuthConfig();
+
   useEffect(() => {
     axios.get('http://localhost:4002/home', config).then((res) => {
       setTransactionsList(res.data);
-    }).catch(() => {
-      alert('alguma coisa deu errada... por favor, recarregue a página');
+    }).catch((error) => {
+      handleError(error);
     });
   }, []);
 
@@ -28,14 +27,9 @@ export default function HomePage() {
     <S.Body>
       <S.TopBox>
         <S.Hello>
-          {`Olá ${user.name}`}
+          {`Olá ${userInfo.name}`}
         </S.Hello>
-        <S.Exit>
-          <ImExit
-            color="#fff"
-            size="24px"
-          />
-        </S.Exit>
+        <ExitButton />
       </S.TopBox>
       <S.RecordsBox>
         {(!transactionsList.length)

@@ -4,13 +4,16 @@ import axios from 'axios';
 
 import UserContext from '../../contexts/UserContext';
 import * as S from './style';
-import ModalAlert from '../../components/ModalAlert';
+import useAuthConfig from '../../hooks/authConfig';
+import handleError from '../../hooks/handleError';
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const { setUser } = useContext(UserContext);
   const history = useHistory();
+
+  const config = useAuthConfig();
 
   function signIn(event) {
     event.preventDefault();
@@ -20,24 +23,11 @@ export default function Login() {
       password: userPassword,
     };
 
-    axios.post('http://localhost:4002/login', body).then((res) => {
+    axios.post('http://localhost:4002/login', body, config).then((res) => {
       setUser(res.data);
-      history.push('/');
+      history.push('/home');
     }).catch((error) => {
-      let title = '';
-      console.log(error.response.status);
-      switch (error.response.status) {
-        case 404:
-          title = 'usuário ou senha inválidos, tente novamente';
-          break;
-        default:
-          title = 'ocorreu um erro. por favor, recarregue a página';
-      }
-      const modalObj = {
-        icon: 'error',
-        title,
-      };
-      ModalAlert(modalObj);
+      handleError(error);
     });
   }
   return (

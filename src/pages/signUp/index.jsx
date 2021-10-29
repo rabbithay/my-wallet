@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 
 import * as S from './styles';
+import handleError from '../../hooks/handleError';
 
 export default function Register() {
   const [userName, setUserName] = useState('');
@@ -26,20 +27,20 @@ export default function Register() {
       return;
     }
     axios.post('http://localhost:4002/register', body).then(() => {
-      history.push('/login');
+      history.push('/');
       setUserName('');
       setUserEmail('');
       setUserPassword('');
       setUserConfirmPassword('');
-    }).catch(() => {
-      alert('alguma coisa deu errada... por favor, tente novamente');
+    }).catch((error) => {
+      handleError(error);
     });
   }
 
   return (
     <S.Body>
       <S.Title>MyWallet</S.Title>
-      <S.Form onSubmit={signUp}>
+      <S.Form onSubmit={(e) => { signUp(e); }}>
         <input
           required
           placeholder="Nome"
@@ -69,7 +70,7 @@ export default function Register() {
         />
         <button type="submit">Cadastrar</button>
       </S.Form>
-      <Link to="/login">
+      <Link to="/">
         <S.GoToLogin>Já tem uma conta? Entre agora!</S.GoToLogin>
       </Link>
     </S.Body>
