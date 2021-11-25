@@ -19,9 +19,13 @@ export const Hello = styled.h1`
     text-align: left;
     width: 100%;
     margin-bottom: 40px;
+    max-width: 500px;
+
 `;
 export const Form = styled.form`
     width: calc(100vw - 50px);
+    max-width: 500px;
+
     input {
         width: 100%;
         height: 58px;
@@ -47,5 +51,7 @@ export const Form = styled.form`
         margin-bottom: 36px;
         font-size: 20px;
         font-weight: 700;
+        max-width: 500px;
+
     }
 `;

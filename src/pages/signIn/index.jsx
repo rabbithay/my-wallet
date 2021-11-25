@@ -7,13 +7,21 @@ import * as S from './style';
 import useAuthConfig from '../../hooks/authConfig';
 import handleError from '../../hooks/handleError';
 
+import logo from '../../assets/logo.png';
+
 export default function Login() {
+  const { userInfo } = useContext(UserContext);
+
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const { setUser } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
   const history = useHistory();
 
   const config = useAuthConfig();
+
+  if (userInfo?.token) {
+    history.push('/home');
+  }
 
   function signIn(event) {
     event.preventDefault();
@@ -24,15 +32,19 @@ export default function Login() {
     };
 
     axios.post('http://localhost:4002/login', body, config).then((res) => {
-      setUser(res.data);
+      setUserInfo(res.data);
       history.push('/home');
     }).catch((error) => {
+      console.log(error);
       handleError(error);
     });
   }
+
   return (
     <S.Body>
+      <img src={logo} alt="logo" />
       <S.Title>MyWallet</S.Title>
+
       <S.Form onSubmit={(event) => { signIn(event); }}>
         <input
           required
@@ -50,6 +62,7 @@ export default function Login() {
         />
         <button type="submit">Entrar</button>
       </S.Form>
+
       <Link to="/register">
         <S.GoToRegister>Primeira vez? Cadastre-se!</S.GoToRegister>
       </Link>

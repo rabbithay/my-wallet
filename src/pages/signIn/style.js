@@ -8,6 +8,10 @@ export const Body = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    img{
+        height: 150px;
+        margin-top: -15%;
+    }
 `;
 export const Title = styled.h1`
     font-family: 'Saira Stencil One';
@@ -17,6 +21,7 @@ export const Title = styled.h1`
 `;
 export const Form = styled.form`
     width: calc(100vw - 50px);
+    max-width: 500px;
     font-family: 'Raleway';
     input {
         width: 100%;
@@ -43,6 +48,8 @@ export const Form = styled.form`
         margin-bottom: 36px;
         font-size: 20px;
         font-weight: 700;
+        max-width: 500px;
+
     }
 `;
 export const GoToRegister = styled.p`
