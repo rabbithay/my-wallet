@@ -13,16 +13,26 @@ export const Body = styled.div`
     font-family: 'Raleway';
 
 `;
+export const TopBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    margin-bottom: 22px;
+    max-width: 500px;
+
+`;
 export const Hello = styled.h1`
     font-size: 26px;
     color: white;
     font-weight: 700;
     text-align: left;
     width: 100%;
-    margin-bottom: 40px;
     max-width: 500px;
 
 `;
+
 export const Form = styled.form`
     width: calc(100vw - 50px);
     max-width: 500px;

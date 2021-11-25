@@ -33,7 +33,7 @@ export default function Transactions({ list }) {
       </AllTransactions>
       <Total>
         <p>SALDO</p>
-        <Result total="total">{total}</Result>
+        <Result total={total}>{total}</Result>
       </Total>
     </Body>
   );

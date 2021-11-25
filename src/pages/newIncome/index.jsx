@@ -1,25 +1,20 @@
-import React, { useContext, useState } from 'react';
-
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
+import BackHomeButton from '../../components/BackHomeButton';
 
 import * as S from './style';
+import useAuthConfig from '../../hooks/authConfig';
 
 export default function NewIncome() {
   const [newValue, setNewValue] = useState();
   const [newDescription, setNewDescription] = useState('');
-  const { user } = useContext(UserContext);
   const history = useHistory();
+  const config = useAuthConfig();
 
   function newTransaction(event) {
     event.preventDefault();
 
-    const config = {
-      headers: {
-        authorization: `Bearer ${user.token}`,
-      },
-    };
     const body = {
       value: parseFloat(newValue),
       description: newDescription,
@@ -32,7 +27,11 @@ export default function NewIncome() {
   }
   return (
     <S.Body>
-      <S.Hello>Nova entrada</S.Hello>
+      <S.TopBox>
+
+        <S.Hello>Nova entrada</S.Hello>
+        <BackHomeButton />
+      </S.TopBox>
       <S.Form onSubmit={(e) => { newTransaction(e); }}>
         <input
           required

@@ -1,38 +1,39 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
 
 import * as S from './style';
+import useAuthConfig from '../../hooks/authConfig';
+import BackHomeButton from '../../components/BackHomeButton';
 
 export default function NewExpense() {
   const [newValue, setNewValue] = useState();
   const [newDescription, setNewDescription] = useState('');
-  const { user } = useContext(UserContext);
   const history = useHistory();
+  const config = useAuthConfig();
 
   function newTransaction(event) {
     event.preventDefault();
 
-    const config = {
-      headers: {
-        authorization: `Bearer ${user.token}`,
-      },
-    };
     const body = {
       value: parseFloat(newValue),
       description: newDescription,
     };
+
     axios.post('http://localhost:4002/expense', body, config).then(() => {
       history.push('/home');
-    }).catch(() => {
+    }).catch((error) => {
+      console.log(error);
       alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
     });
   }
 
   return (
     <S.Body>
-      <S.Hello>Nova saída</S.Hello>
+      <S.TopBox>
+        <S.Hello>Nova saída</S.Hello>
+        <BackHomeButton />
+      </S.TopBox>
       <S.Form onSubmit={(e) => { newTransaction(e); }}>
         <input
           required
