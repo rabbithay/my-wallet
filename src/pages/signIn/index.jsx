@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import UserContext from '../../contexts/UserContext';
 import * as S from './style';
-import useAuthConfig from '../../hooks/authConfig';
-import handleError from '../../hooks/handleError';
+import handleError from '../../utils/handleError';
 
 import logo from '../../assets/logo.png';
+import { login } from '../../services/userService';
 
 export default function Login() {
   const { userInfo } = useContext(UserContext);
@@ -16,8 +15,6 @@ export default function Login() {
   const [userPassword, setUserPassword] = useState('');
   const { setUserInfo } = useContext(UserContext);
   const history = useHistory();
-
-  const config = useAuthConfig();
 
   if (userInfo?.token) {
     history.push('/home');
@@ -31,11 +28,10 @@ export default function Login() {
       password: userPassword,
     };
 
-    axios.post('http://localhost:4002/login', body, config).then((res) => {
+    login(body).then((res) => {
       setUserInfo(res.data);
       history.push('/home');
     }).catch((error) => {
-      console.log(error);
       handleError(error);
     });
   }

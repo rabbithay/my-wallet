@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import BackHomeButton from '../../components/BackHomeButton';
 
 import * as S from './style';
+import { createNewIncome } from '../../services/transactionService';
 import useAuthConfig from '../../hooks/authConfig';
+import handleError from '../../utils/handleError';
 
 export default function NewIncome() {
   const [newValue, setNewValue] = useState();
@@ -19,10 +20,10 @@ export default function NewIncome() {
       value: parseFloat(newValue),
       description: newDescription,
     };
-    axios.post('http://localhost:4002/income', body, config).then(() => {
+    createNewIncome({ body, config }).then(() => {
       history.push('/home');
-    }).catch(() => {
-      alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
+    }).catch((error) => {
+      handleError(error);
     });
   }
   return (

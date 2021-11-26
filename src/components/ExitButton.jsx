@@ -1,30 +1,30 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { ImExit } from 'react-icons/im';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import useAuthConfig from '../hooks/authConfig';
-import handleError from '../hooks/handleError';
+import handleError from '../utils/handleError';
 import UserContext from '../contexts/UserContext';
+import { logout } from '../services/userService';
+import useAuthConfig from '../hooks/authConfig';
 
 export default function ExitButton() {
   const history = useHistory();
-  const config = useAuthConfig();
   const { setUserInfo } = useContext(UserContext);
+  const config = useAuthConfig();
 
-  function logOut() {
-    axios.post('http://localhost:4002/logout', {}, config).then(() => {
+  function handleLogOut() {
+    logout(config).then(() => {
       setUserInfo('');
       history.push('/');
     }).catch((error) => {
       handleError(error);
     });
   }
+
   return (
     <Exit>
       <ImExit
-        onClick={() => { logOut(); }}
+        onClick={() => { handleLogOut(); }}
         color="#fff"
         size="24px"
       />

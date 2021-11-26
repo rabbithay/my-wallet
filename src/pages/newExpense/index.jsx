@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 import * as S from './style';
-import useAuthConfig from '../../hooks/authConfig';
 import BackHomeButton from '../../components/BackHomeButton';
+import { createNewExpense } from '../../services/transactionService';
+import useAuthConfig from '../../hooks/authConfig';
+import handleError from '../../utils/handleError';
 
 export default function NewExpense() {
   const [newValue, setNewValue] = useState();
@@ -20,11 +21,10 @@ export default function NewExpense() {
       description: newDescription,
     };
 
-    axios.post('http://localhost:4002/expense', body, config).then(() => {
+    createNewExpense({ body, config }).then(() => {
       history.push('/home');
     }).catch((error) => {
-      console.log(error);
-      alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
+      handleError(error);
     });
   }
 
