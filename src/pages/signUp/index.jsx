@@ -35,7 +35,6 @@ export default function Register() {
       setUserPassword('');
       setUserConfirmPassword('');
     }).catch((error) => {
-      console.log(error);
       handleError(error);
     });
   }
