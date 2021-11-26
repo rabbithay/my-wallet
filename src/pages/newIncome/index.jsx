@@ -1,38 +1,38 @@
-import React, { useContext, useState } from 'react';
-
-import axios from 'axios';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import UserContext from '../../contexts/UserContext';
+import BackHomeButton from '../../components/BackHomeButton';
 
 import * as S from './style';
+import { createNewIncome } from '../../services/transactionService';
+import useAuthConfig from '../../hooks/authConfig';
+import handleError from '../../utils/handleError';
 
 export default function NewIncome() {
   const [newValue, setNewValue] = useState();
   const [newDescription, setNewDescription] = useState('');
-  const { user } = useContext(UserContext);
   const history = useHistory();
+  const config = useAuthConfig();
 
   function newTransaction(event) {
     event.preventDefault();
 
-    const config = {
-      headers: {
-        authorization: `Bearer ${user.token}`,
-      },
-    };
     const body = {
       value: parseFloat(newValue),
       description: newDescription,
     };
-    axios.post('http://localhost:4002/income', body, config).then(() => {
+    createNewIncome({ body, config }).then(() => {
       history.push('/home');
-    }).catch(() => {
-      alert('desculpe, houve um erro ao salvar a sua transação. por favor, tente novamente');
+    }).catch((error) => {
+      handleError(error);
     });
   }
   return (
     <S.Body>
-      <S.Hello>Nova entrada</S.Hello>
+      <S.TopBox>
+
+        <S.Hello>Nova entrada</S.Hello>
+        <BackHomeButton />
+      </S.TopBox>
       <S.Form onSubmit={(e) => { newTransaction(e); }}>
         <input
           required

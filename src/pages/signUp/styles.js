@@ -8,6 +8,9 @@ export const Body = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    img{
+        height: 150px;
+    }
 `;
 
 export const Title = styled.h1`
@@ -20,6 +23,7 @@ export const Title = styled.h1`
 export const Form = styled.form`
     width: calc(100vw - 50px);
     font-family: 'Raleway';
+    max-width: 500px;
     input {
         width: 100%;
         height: 58px;
@@ -45,6 +49,8 @@ export const Form = styled.form`
         margin-bottom: 36px;
         font-size: 20px;
         font-weight: 700;
+        max-width: 500px;
+
     }
 `;
 

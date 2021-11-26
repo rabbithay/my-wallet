@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import axios from 'axios';
 
 import * as S from './styles';
-import handleError from '../../hooks/handleError';
+import handleError from '../../utils/handleError';
+
+import logo from '../../assets/logo.png';
+import { register } from '../../services/userService';
 
 export default function Register() {
   const [userName, setUserName] = useState('');
@@ -26,7 +28,7 @@ export default function Register() {
       alert('As senhas não correspondem.');
       return;
     }
-    axios.post('http://localhost:4002/register', body).then(() => {
+    register(body).then(() => {
       history.push('/');
       setUserName('');
       setUserEmail('');
@@ -39,6 +41,8 @@ export default function Register() {
 
   return (
     <S.Body>
+      <img src={logo} alt="logo" />
+
       <S.Title>MyWallet</S.Title>
       <S.Form onSubmit={(e) => { signUp(e); }}>
         <input

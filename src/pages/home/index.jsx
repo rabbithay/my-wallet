@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
 import UserContext from '../../contexts/UserContext';
-import Transactions from './Transactions';
+import TransactionList from '../../components/TransactionList';
 
 import * as S from './style';
-import useAuthConfig from '../../hooks/authConfig';
 import ExitButton from '../../components/ExitButton';
-import handleError from '../../hooks/handleError';
+import handleError from '../../utils/handleError';
+import { getTransactions } from '../../services/transactionService';
+import useAuthConfig from '../../hooks/authConfig';
 
 export default function HomePage() {
   const [transactionsList, setTransactionsList] = useState('');
@@ -16,7 +16,7 @@ export default function HomePage() {
   const config = useAuthConfig();
 
   useEffect(() => {
-    axios.get('http://localhost:4002/home', config).then((res) => {
+    getTransactions(config).then((res) => {
       setTransactionsList(res.data);
     }).catch((error) => {
       handleError(error);
@@ -41,7 +41,7 @@ export default function HomePage() {
               entrada ou saída
             </p>
           )
-          : <Transactions list={transactionsList} />}
+          : <TransactionList list={transactionsList} />}
         {' '}
       </S.RecordsBox>
       <S.BottomBox>

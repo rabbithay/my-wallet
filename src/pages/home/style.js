@@ -10,7 +10,9 @@ export const Body = styled.div`
     justify-content: center;
     font-family: 'Raleway';
     padding: 25px;
+    
 `;
+
 export const TopBox = styled.div`
     display: flex;
     align-items: center;
@@ -18,7 +20,10 @@ export const TopBox = styled.div`
     width: 100%;
     height: auto;
     margin-bottom: 22px;
+    max-width: 500px;
+
 `;
+
 export const Hello = styled.h1`
     font-size: 26px;
     color: white;
@@ -34,15 +39,20 @@ export const RecordsBox = styled.div`
     align-items: center;
     justify-content: center;
     margin-bottom: 13px;
+    max-width: 500px;
 `;
+
 export const BottomBox = styled.div`
     height: 114px;
     width: 100%;
     display: flex;
     justify-content: space-between;
+    max-width: 500px;
 `;
+
 export const Button = styled.button`
     width: calc((100vw - 65px) / 2);
+    max-width: 240px;
     height: 100%;
     background-color: #fb76b5;
     display: flex;

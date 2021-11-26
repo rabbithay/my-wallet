@@ -1,19 +1,24 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 import UserContext from '../../contexts/UserContext';
 import * as S from './style';
-import useAuthConfig from '../../hooks/authConfig';
-import handleError from '../../hooks/handleError';
+import handleError from '../../utils/handleError';
+
+import logo from '../../assets/logo.png';
+import { login } from '../../services/userService';
 
 export default function Login() {
+  const { userInfo } = useContext(UserContext);
+
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const { setUser } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
   const history = useHistory();
 
-  const config = useAuthConfig();
+  if (userInfo?.token) {
+    history.push('/home');
+  }
 
   function signIn(event) {
     event.preventDefault();
@@ -23,16 +28,19 @@ export default function Login() {
       password: userPassword,
     };
 
-    axios.post('http://localhost:4002/login', body, config).then((res) => {
-      setUser(res.data);
+    login(body).then((res) => {
+      setUserInfo(res.data);
       history.push('/home');
     }).catch((error) => {
       handleError(error);
     });
   }
+
   return (
     <S.Body>
+      <img src={logo} alt="logo" />
       <S.Title>MyWallet</S.Title>
+
       <S.Form onSubmit={(event) => { signIn(event); }}>
         <input
           required
@@ -50,6 +58,7 @@ export default function Login() {
         />
         <button type="submit">Entrar</button>
       </S.Form>
+
       <Link to="/register">
         <S.GoToRegister>Primeira vez? Cadastre-se!</S.GoToRegister>
       </Link>
