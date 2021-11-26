@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Transaction from './Transaction';
 
-export default function Transactions({ list }) {
+export default function TransactionList({ list }) {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
