@@ -67,7 +67,7 @@ $ npm run build
 # Run the application 
 $ npm start
 
-# The server will automatically start at localhost:3000/ on your favorite browser 
+# The server will automatically start at your link on your favorite browser 
 ```
 
 </br>
